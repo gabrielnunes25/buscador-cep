@@ -1,25 +1,78 @@
-import logo from './logo.svg';
-import './App.css';
+import { useState } from 'react';
+import { FiSearch } from 'react-icons/fi';
+import './styles.css';
+import api from './services/api';
 
 function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+    const [input, setInput] = useState('');
+    const [cep, setCep] = useState({});
+
+    const handleKeyUp = e => {
+        if (e.code === 'Enter' || e.code === 'NumpadEnter') {
+            handleSearch();
+        }
+    };
+
+    async function handleSearch() {
+        if (input === '' || input.length < 8) {
+            alert('CEP incorreto!');
+            setInput('');
+            return;
+        }
+
+        try {
+            const response = await api.get(`${input}/json`);
+            if (!response.data.erro) {
+                console.log(response.data);
+                console.log('ecisite');
+                setCep(response.data);
+            } else {
+                alert('Esse CEP não existe!');
+            }
+        } catch {
+            alert('Erro ao buscar...');
+            setCep({});
+        }
+        setInput('');
+    }
+
+    return (
+        <div className="container">
+            <h1 className="title">Buscador CEP</h1>
+
+            <div className="containerInput">
+                <input
+                    type="text"
+                    placeholder="Digite o seu CEP..."
+                    value={input}
+                    onChange={e =>
+                        !isNaN(e.target.value)
+                            ? setInput(e.target.value)
+                            : console
+                    }
+                    maxLength="8"
+                    onKeyUp={handleKeyUp}
+                />
+
+                <button className="buttonSearch" onClick={handleSearch}>
+                    <FiSearch size={25} color="#fff" />
+                </button>
+            </div>
+
+            {Object.keys(cep).length > 0 && (
+                <main className="main">
+                    <h2>CEP: {cep.cep}</h2>
+
+                    <span>{cep.logradouro}</span>
+                    <span>Complemento: {cep.complemento}</span>
+                    <span> {cep.bairro}</span>
+                    <span>
+                        {cep.localidade} - {cep.uf}
+                    </span>
+                </main>
+            )}
+        </div>
+    );
 }
 
 export default App;
