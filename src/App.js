@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { FiSearch } from 'react-icons/fi';
 import './styles.css';
 import api from './services/api';
+import { MdCopyright } from 'react-icons/md';
 
 function App() {
     const [input, setInput] = useState('');
@@ -45,11 +46,13 @@ function App() {
                     type="text"
                     placeholder="Digite o seu CEP..."
                     value={input}
-                    onChange={e =>
-                        !isNaN(e.target.value)
+                    onChange={e => {
+                        isNaN(e.target.value)
                             ? setInput(e.target.value)
-                            : console
-                    }
+                            : console.log('Errado ');
+
+                        console.log(isNaN(e.target.value));
+                    }}
                     maxLength="8"
                     onKeyUp={handleKeyUp}
                 />
@@ -71,6 +74,12 @@ function App() {
                     </span>
                 </main>
             )}
+            <footer>
+                <MdCopyright color="#fff" /> Direitos Reservados a
+                <a href="https://github.com/gabrielnunes25" target="_blank">
+                    Gabriel Nunes
+                </a>
+            </footer>
         </div>
     );
 }

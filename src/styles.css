@@ -93,3 +93,24 @@
         font-size: 28px;
     }
 }
+
+footer {
+    align-items: center;
+    bottom: 10px;
+    color: whitesmoke;
+    display: flex;
+    font-size: 14px;
+    justify-content: space-between;
+    position: absolute;
+}
+
+footer a {
+    color: whitesmoke;
+    font-size: 14px;
+    text-decoration: none;
+    padding-left: 2.5px;
+}
+
+footer a:hover {
+    color: skyblue;
+}
