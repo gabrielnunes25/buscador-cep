@@ -76,7 +76,11 @@ function App() {
             )}
             <footer>
                 <MdCopyright color="#fff" /> Direitos Reservados a
-                <a href="https://github.com/gabrielnunes25" target="_blank">
+                <a
+                    href="https://github.com/gabrielnunes25"
+                    target="_blank"
+                    rel="noreferrer"
+                >
                     Gabriel Nunes
                 </a>
             </footer>
