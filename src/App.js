@@ -47,11 +47,7 @@ function App() {
                     placeholder="Digite o seu CEP..."
                     value={input}
                     onChange={e => {
-                        isNaN(e.target.value)
-                            ? setInput(e.target.value)
-                            : console.log('Errado ');
-
-                        console.log(isNaN(e.target.value));
+                        setInput(e.target.value);
                     }}
                     maxLength="8"
                     onKeyUp={handleKeyUp}
